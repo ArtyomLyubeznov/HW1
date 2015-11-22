@@ -125,24 +125,24 @@ public class FunctionsTests {
 
     @Test
     public void testIntersectArraysOneOfTheArraysIsNull(){
-        assertArrayEquals(null, Functions.intersectArrays(null, new double[]{2.589, 0.1563, 10.24}), 1.0e-10);
+        assertArrayEquals(null, Functions.intersect(null, new double[]{2.589, 0.1563, 10.24}), 1.0e-10);
     }
 
     @Test
     public void testIntersectArraysOneOfTheArraysIsEmpty(){
-        assertArrayEquals(null, Functions.intersectArrays(new double[]{}, new double[]{2.589, 0.1563, 10.24}), 1.0e-10);
+        assertArrayEquals(null, Functions.intersect(new double[]{}, new double[]{2.589, 0.1563, 10.24}), 1.0e-10);
     }
 
     @Test
     public void testIntersectArraysIntersectionIsEmpty(){
-        assertArrayEquals(null, Functions.intersectArrays(
+        assertArrayEquals(null, Functions.intersect(
                 new double[]{2.7182818284, 99.99, 0.1234}, new double[]{2.7182818287, 10.24}), 1.0e-10);
     }
 
     @Test
     public void testIntersectArraysIntersectionIsNotEmpty(){
         assertArrayEquals(new double[]{2.7182818284, 99.99},
-                Functions.intersectArrays(
+                Functions.intersect(
                         new double[]{2.7182818284, 99.99, 3.1415926535},
                         new double[]{99.99, 1.234567, 2.7182818284, 3,141592}
                 ), 1.0e-10);
@@ -151,7 +151,7 @@ public class FunctionsTests {
     @Test
     public void testIntersectArraysOneOfTheArraysContainsDuplicateElements(){
         assertArrayEquals(new double[]{2.718281, 99.99},
-                Functions.intersectArrays(
+                Functions.intersect(
                         new double[]{2.718281, 99.99, 2.718281, 0.112358, 99.99},
                         new double[]{99.99, 1.234567, 2.718281, 3,141592, 0.149}
                 ), 1.0e-10);

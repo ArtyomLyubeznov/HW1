@@ -32,6 +32,13 @@ public class Functions {
         return found;
     }
 
+    static boolean isEmpty(int[][] matrix){
+        if (matrix == null || matrix.length == 0){
+            return true;
+        }
+        return false;
+    }
+
     static boolean isMatrix(int[][] matrix) {
         for (int i = 1; i < matrix.length; i++) {
             if (matrix[i].length != matrix[0].length) {
@@ -41,62 +48,61 @@ public class Functions {
         return true;
     }
 
-    static boolean canBeMultiplied(int[][] matrix1, int[][] matrix2) {
-        if ((matrix1 == null) || (matrix2 == null) ||
-                (matrix1.length == 0) || (matrix2.length == 0) ||
-                !isMatrix(matrix1) || !isMatrix(matrix2) ||
-                (matrix1[0].length != matrix2.length)) {
+    static boolean canBeMultiplied(int[][] first, int[][] second) {
+        if (isEmpty(first) || isEmpty(second) ||
+                !isMatrix(first) || !isMatrix(second) ||
+                (first[0].length != second.length)) {
             return false;
         }
         return true;
     }
 
-    static int[][] multiplyMatrix(int[][] matrix1, int[][] matrix2) {
-        if (!canBeMultiplied(matrix1, matrix2)) {
+    static int[][] multiplyMatrix(int[][] first, int[][] second) {
+        if (!canBeMultiplied(first, second)) {
             return null;
         }
-        int[][] matrixRes = new int[matrix1.length][matrix2[0].length];
+        int[][] matrixRes = new int[first.length][second[0].length];
         for (int i = 0; i < matrixRes.length; i++) {
             for (int j = 0; j < matrixRes[0].length; j++) {
-                for (int k = 0; k < matrix1[0].length; k++) {
-                    matrixRes[i][j] += matrix1[i][k] * matrix2[k][j];
+                for (int k = 0; k < first[0].length; k++) {
+                    matrixRes[i][j] += first[i][k] * second[k][j];
                 }
             }
         }
         return matrixRes;
     }
 
-    static boolean isEqual(double value1, double value2) {
-        if (Math.abs(value1 - value2) < 1.0e-10) {
+    static boolean equals(double first, double second) {
+        if (Math.abs(first - second) < 1.0e-10) {
             return true;
         }
         return false;
     }
 
-    static double[] intersectArrays(double[] arr1, double[] arr2) {
-        if (arr1 == null || arr2 == null
-                || arr1.length == 0 || arr2.length == 0) {
-            return null;
+    static double[] intersect(double[] first, double[] second) {
+        if (first == null || second == null
+                || first.length == 0 || second.length == 0) {
+            return new double[]{};
         }
         int size = 0;
-        double[] arrTmp = new double[arr1.length];
-        for (int i = 0; i < arr1.length; i++) {
+        double[] tmp = new double[first.length];
+        for (int i = 0; i < first.length; i++) {
             int j = 0;
-            while ((j < arr2.length) && !isEqual(arr2[j], arr1[i])) {
+            while ((j < second.length) && !equals(second[j], first[i])) {
                 j++;
             }
             int k = 0;
-            while (!isEqual(arrTmp[k], arr1[i]) && (k < size)) {
+            while (!equals(tmp[k], first[i]) && (k < size)) {
                 k++;
             }
-            if ((j < arr2.length) && (k == size)) {
-                arrTmp[size] = arr1[i];
+            if ((j < second.length) && (k == size)) {
+                tmp[size] = first[i];
                 size++;
             }
         }
         if (size == 0) {
-            return null;
+            return new double[]{};
         }
-        return Arrays.copyOf(arrTmp, size);
+        return Arrays.copyOf(tmp, size);
     }
 }
